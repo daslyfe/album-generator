@@ -1,6 +1,6 @@
 import "./FormEntry.css";
 import React from "react";
-function FormEntry({ title }) {
+function FormEntry({ title, onSubmit, submitTitle, entryButtonTitle }) {
   const defaultInput = [{ value: "" }];
   const [inputState, setInputState] = React.useState({
     entries: defaultInput,
@@ -8,18 +8,18 @@ function FormEntry({ title }) {
   //uses currying operation to update the state of the available entries
   const updateEntry = (index) => (event) => {
     //   console.log(inputState.entries.map((entry) => entry))
-    const newEntrys = inputState.entries.map((entry, entryIndex) =>
-    
+    const newEntrys = inputState.entries.map((entry, entryIndex) => {
+      console.log(entry);
       //if the value isnt new, keep it the same, else change the entry to the new value
-      index !== entryIndex ? entry : { ...entry, value: event.target.value }
-    );
-    setInputState(newEntrys);
+      return index !== entryIndex
+        ? entry
+        : { ...entry, value: event.target.value };
+    });
+    console.log(inputState);
+    setInputState({ entries: newEntrys });
   };
 
-  const handleSubmit = (event) =>
-    alert(
-      `This form for ${title} now has ${inputState.entries.length} entries`
-    );
+
 
   const handleAddEntry = () =>
     setInputState({ entries: inputState.entries.concat(defaultInput) });
@@ -30,7 +30,7 @@ function FormEntry({ title }) {
         (entry, entryIndex) => index !== entryIndex
       ),
     });
-console.log(inputState.entries);
+  console.log(inputState);
   const EntryFields = inputState.entries.map((entry, index) => (
     <div className="entry" key={index}>
       <input
@@ -41,22 +41,27 @@ console.log(inputState.entries);
       />
       <button
         type="button"
-        onClick={handleRemoveEntry(index)}
+        onMouseDown={handleRemoveEntry(index)}
         className="small"
       >
         -
       </button>
     </div>
   ));
+
+  function SubmitButton({title}) {
+    return title ? <button>{title}</button> : <></>
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <h4>{title}</h4>
       {EntryFields}
 
-      <button type="button" onClick={handleAddEntry} className="small">
-        Add entry
+      <button type="button" onMouseDown={handleAddEntry} className="small">
+        {entryButtonTitle || "add entry"}
       </button>
-      <button>Submit</button>
+      <SubmitButton title={submitTitle}/>
     </form>
   );
 }
