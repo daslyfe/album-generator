@@ -6,44 +6,56 @@ import modifiers from "../atoms/modifiers.json";
 
 function BandPage() {
   const [knobValues, setKnobValues] = useState({
-    conjunctions: 0.5,
-    determiners: 0.5,
-    prepositions: 0.5,
+    conjunction: 0.5,
+    determiner: 0.5,
+    preposition: 0.5,
+    custom: .5,
     max_length: .5
   });
   const [words, setWords] = useState(modifiers);
+  console.log(words)
 
   return (
     <div className="App">
-      <PhraseList knobValues={knobValues} />
+      <PhraseList knobValues={knobValues} dictionary={words}/>
       <Knob
-        key="conjunctions"
-        initVal={knobValues.conjunctions * 100}
+        key="custom"
+        initVal={knobValues.custom * 100}
+        diameter="120px"
+        color="teal"
+        pointerColor="white"
+        action={(midi, val) => {
+          setKnobValues({ ...knobValues, custom: val });
+        }}
+      />
+      <Knob
+        key="conjunction"
+        initVal={knobValues.conjunction * 100}
         diameter="120px"
         color="#FFFEFF"
         pointerColor="#CCCCCC"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, conjunctions: val });
+          setKnobValues({ ...knobValues, conjunction: val });
         }}
       />
       <Knob
-        key="determiners"
-        initVal={knobValues.determiners * 100}
+        key="determiner"
+        initVal={knobValues.determiner * 100}
         diameter="120px"
         color="green"
-        pointerColor="#CCCCCC"
+        pointerColor="white"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, determiners: val });
+          setKnobValues({ ...knobValues, determiner: val });
         }}
       />
       <Knob
-        key="prepositions"
-        initVal={knobValues.determiners * 100}
+        key="preposition"
+        initVal={knobValues.determiner * 100}
         diameter="120px"
         color="orange"
-        pointerColor="#CCCCCC"
+        pointerColor="white"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, prepositions: val });
+          setKnobValues({ ...knobValues, preposition: val });
         }}
       />
         <Knob
@@ -51,7 +63,7 @@ function BandPage() {
         initVal={knobValues.max_length * 100}
         diameter="120px"
         color="yellow"
-        pointerColor="#CCCCCC"
+        pointerColor="white"
         action={(midi, val) => {
           setKnobValues({ ...knobValues, max_length: val });
         }}
@@ -60,7 +72,7 @@ function BandPage() {
         title="enter word"
         submitTitle="generate album"
         key="wordenter"
-        onSubmit={(inputState) => setWords({...words, custom: inputState.entries})}
+        onInputBlur={(inputState) => setWords({...words, custom: inputState.entries})}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 {
-  "prepositions": [
+  "preposition": [
     "About",
     "Above",
     "According to",
@@ -100,7 +100,7 @@
     "Within",
     "Without"
   ],
-  "conjunctions": [
+  "conjunction": [
     "and",
     "but",
     "for",
@@ -115,7 +115,7 @@
     "because",
     "before"
   ],
-  "determiners": [
+  "determiner": [
     "the",
     "a",
     "an",
@@ -152,5 +152,6 @@
     "what",
     "rather",
     "quite"
-  ]
+  ],
+  "custom": ["sand"]
 }

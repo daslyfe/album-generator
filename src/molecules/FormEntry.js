@@ -2,10 +2,16 @@ import "./FormEntry.css";
 import React from "react";
 import SubmitButton from "../atoms/SubmitButton";
 
-const FormEntry = ({ title, onSubmit, submitTitle, entryButtonTitle }) => {
-  const defaultInput = [{ value: "" }];
+const FormEntry = ({
+  title,
+  onSubmit,
+  submitTitle,
+  entryButtonTitle,
+  onInputBlur,
+}) => {
+  const defaultInput = "";
   const [inputState, setInputState] = React.useState({
-    entries: defaultInput,
+    entries: [defaultInput],
   });
 
   const updateEntry = (index, event) => {
@@ -14,7 +20,7 @@ const FormEntry = ({ title, onSubmit, submitTitle, entryButtonTitle }) => {
       //if the value isnt new, keep it the same, else change the entry to the new value
       return index !== entryIndex
         ? entry
-        : { ...entry, value: event.target.value };
+        : event.target.value ;
     });
     setInputState({ ...inputState, entries: newEntrys });
   };
@@ -30,16 +36,18 @@ const FormEntry = ({ title, onSubmit, submitTitle, entryButtonTitle }) => {
     });
   };
 
-  
   //this needs to be called as a function, instead of written as a JSX component, or else the entire component will rerender on each input
   const EntryFields = () => {
     return inputState.entries.map((entry, index) => (
       <div className="entry" key={index}>
         <input
           key={index}
+          onBlur={(event) => {
+            if (onInputBlur) onInputBlur(inputState, event);
+          }}
           type="text"
-          placeholder={`entry #${index + 1} name`}
-          value={entry.value}
+          placeholder={`custom #${index + 1}`}
+          value={entry}
           onChange={(event) => updateEntry(index, event)}
         />
         <button
@@ -53,8 +61,6 @@ const FormEntry = ({ title, onSubmit, submitTitle, entryButtonTitle }) => {
       </div>
     ));
   };
-
-  
 
   return (
     <form
