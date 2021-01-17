@@ -1,0 +1,3 @@
+KNOBS: odds of each type of modifier appearing in the phrase
+also, knob for maximum length of the phrase.
+allow the user to lock phrases in place, or save them

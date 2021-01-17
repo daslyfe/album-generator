@@ -1,68 +1,78 @@
 import "./FormEntry.css";
 import React from "react";
-function FormEntry({ title, onSubmit, submitTitle, entryButtonTitle }) {
+import SubmitButton from "../atoms/SubmitButton";
+
+const FormEntry = ({ title, onSubmit, submitTitle, entryButtonTitle }) => {
   const defaultInput = [{ value: "" }];
   const [inputState, setInputState] = React.useState({
     entries: defaultInput,
   });
-  //uses currying operation to update the state of the available entries
-  const updateEntry = (index) => (event) => {
+
+  const updateEntry = (index, event) => {
     //   console.log(inputState.entries.map((entry) => entry))
     const newEntrys = inputState.entries.map((entry, entryIndex) => {
-      console.log(entry);
       //if the value isnt new, keep it the same, else change the entry to the new value
       return index !== entryIndex
         ? entry
         : { ...entry, value: event.target.value };
     });
-    console.log(inputState);
-    setInputState({ entries: newEntrys });
+    setInputState({ ...inputState, entries: newEntrys });
   };
-
-
 
   const handleAddEntry = () =>
     setInputState({ entries: inputState.entries.concat(defaultInput) });
 
-  const handleRemoveEntry = (index) => () =>
+  const handleRemoveEntry = (index) => {
     setInputState({
       entries: inputState.entries.filter(
         (entry, entryIndex) => index !== entryIndex
       ),
     });
-  console.log(inputState);
-  const EntryFields = inputState.entries.map((entry, index) => (
-    <div className="entry" key={index}>
-      <input
-        type="text"
-        placeholder={`entry #${index + 1} name`}
-        value={entry.value}
-        onChange={updateEntry(index)}
-      />
-      <button
-        type="button"
-        onMouseDown={handleRemoveEntry(index)}
-        className="small"
-      >
-        -
-      </button>
-    </div>
-  ));
+  };
 
-  function SubmitButton({title}) {
-    return title ? <button>{title}</button> : <></>
-  }
+  
+  //this needs to be called as a function, instead of written as a JSX component, or else the entire component will rerender on each input
+  const EntryFields = () => {
+    return inputState.entries.map((entry, index) => (
+      <div className="entry" key={index}>
+        <input
+          key={index}
+          type="text"
+          placeholder={`entry #${index + 1} name`}
+          value={entry.value}
+          onChange={(event) => updateEntry(index, event)}
+        />
+        <button
+          key={index + 1}
+          type="button"
+          onMouseDown={(event) => handleRemoveEntry(index, event)}
+          className="small"
+        >
+          -
+        </button>
+      </div>
+    ));
+  };
+
+  
 
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      className="form"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSubmit ? onSubmit(inputState, event) : alert("submit");
+      }}
+    >
       <h4>{title}</h4>
-      {EntryFields}
+
+      {EntryFields()}
 
       <button type="button" onMouseDown={handleAddEntry} className="small">
         {entryButtonTitle || "add entry"}
       </button>
-      <SubmitButton title={submitTitle}/>
+      <SubmitButton title={submitTitle} />
     </form>
   );
-}
+};
 export default FormEntry;
