@@ -19,8 +19,10 @@ export const num = {
 
 export const obj = {
   randomProperty: (obj) => {
-    const keys = Object.keys(obj);
-    //bitshift operator is like using Math.round(), but it will always round down so an invalid key cant be selected
-    return obj[keys[(keys.length * Math.random()) << 0]];
+    if (obj) {
+      const keys = Object.keys(obj);
+      //bitshift operator is like using Math.round(), but it will always round down so an invalid key cant be selected
+      return obj[keys[(keys.length * Math.random()) << 0]];
+    }
   },
 };

@@ -17,7 +17,7 @@ function BandPage() {
 
   return (
     <div className="App">
-      <PhraseList knobValues={knobValues} dictionary={words}/>
+      <PhraseList grammer={true} knobValues={knobValues} dictionary={words}/>
       <Knob
         key="custom"
         initVal={knobValues.custom * 100}
@@ -35,7 +35,7 @@ function BandPage() {
         color="#FFFEFF"
         pointerColor="#CCCCCC"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, conjunction: val });
+          setKnobValues({ ...knobValues, conjunction: val/2});
         }}
       />
       <Knob
@@ -45,7 +45,7 @@ function BandPage() {
         color="green"
         pointerColor="white"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, determiner: val });
+          setKnobValues({ ...knobValues, determiner: val/2 });
         }}
       />
       <Knob
@@ -55,7 +55,7 @@ function BandPage() {
         color="orange"
         pointerColor="white"
         action={(midi, val) => {
-          setKnobValues({ ...knobValues, preposition: val });
+          setKnobValues({ ...knobValues, preposition: val/2 });
         }}
       />
         <Knob

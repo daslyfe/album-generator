@@ -1,0 +1,8 @@
+KNOBS: odds of each type of modifier appearing in the phrase
+also, knob for maximum length of the phrase.
+allow the user to lock phrases in place, or save them
+Allow user to turn on grammer rules: 
+no more than two modifiers next to eachother, of differnt types. no modifiers at the end
+-prepositions and conjunctions should never be next to eachother
+-no two modifiers should ever be next to the same kind of modifier
+-actually two modifiers should never be next to eachotther or at the end 
