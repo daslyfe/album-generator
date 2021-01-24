@@ -1,6 +1,6 @@
 import "./FormEntry.css";
 import React from "react";
-import SubmitButton from "../atoms/SubmitButton";
+import SubmitButton from "./SubmitButton";
 
 const FormEntry = ({
   title,

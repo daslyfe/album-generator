@@ -1,5 +1,5 @@
-import modifiers from "../atoms/modifiers.json";
-import { ar, obj } from "../atoms/utility";
+import wordData from "../appData/words.json";
+import { ar, obj } from "../utility/utility";
 let previousType = "";
 const PhraseList = ({ dictionary, knobValues, grammer }) => {
   //fill an array with the key n amount of times based on the value of they keys knob, than shuffle it and select the first value
@@ -22,16 +22,27 @@ const PhraseList = ({ dictionary, knobValues, grammer }) => {
   const selectType = (phraseArraySize, currentKey) => {
     let selected = raffle[randomPick()];
     const grammerConflict = () => {
-      const modifiersNextToEachother =
-        modifierTypes.some((type) => type === selected) &&
-        modifierTypes.some((type) => type === previousType)
-          ? true
-          : false;
-          console.log(`currentKey: ${currentKey} phraseArraySize ${phraseArraySize}`)
-      const endingInModifier =
-        currentKey >= phraseArraySize -1 && modifierTypes.some((type) => type === selected);
-        console.log(endingInModifier);
-      return modifiersNextToEachother || endingInModifier ? true : false;
+      const brokenRules = {
+        functionWordsDoubled:
+          modifierTypes.some((type) => type === selected) &&
+          modifierTypes.some((type) => type === previousType),
+
+        conjunctionNextToPreposition:
+          previousType === "preposition" && selected === "conjunction",
+
+        determinerBeforePreposition:
+          previousType === "determiner" && selected === "preposition",
+
+        endingInConjunctionOrDeterminer:
+          currentKey >= phraseArraySize - 1 &&
+          (selected === "conjunction" || selected === "determiner"),
+      };
+
+      // console.log(Object.keys(brokenRules).some(
+      //   (key) => {
+      //     console.log( key + " " + brokenRules[key])
+      //   return brokenRules[key] }))
+      return Object.keys(brokenRules).some((key) => brokenRules[key]);
     };
     let tries = 0;
     if (grammer) {

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './settings/index.css';
-import BandPage from './pages/BandPage.js';
-import reportWebVitals from './atoms/reportWebVitals';
+import './style/index.css';
+import MainPage from './pages/MainPage.js';
+import reportWebVitals from './utility/reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BandPage />
+    <MainPage />
   </React.StrictMode>,
   document.getElementById('root')
 );

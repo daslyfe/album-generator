@@ -1,8 +1,8 @@
-import FormEntry from "../molecules/FormEntry";
-import PhraseList from "../molecules/PhraseList";
-import Knob from "../atoms/Knob";
+import FormEntry from "../components/FormEntry";
+import PhraseList from "../components/PhraseList";
+import Knob from "../components/Knob";
 import { useState } from "react";
-import modifiers from "../atoms/modifiers.json";
+import wordData from "../appData/words.json";
 
 function BandPage() {
   const [knobValues, setKnobValues] = useState({
@@ -12,8 +12,8 @@ function BandPage() {
     custom: .5,
     max_length: .5
   });
-  const [words, setWords] = useState(modifiers);
-  console.log(words)
+  const [words, setWords] = useState(wordData);
+  // console.log(words)
 
   return (
     <div className="App">
