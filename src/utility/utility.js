@@ -26,3 +26,18 @@ export const obj = {
     }
   },
 };
+
+export const jsonUtil = {
+  fetch: async function (URL, callback) {
+    const response = await fetch(`${URL}`);
+    const json = await response.json();
+    callback(json);
+  },
+};
+
+export const app = {
+  gtDmQuery(word, maxResults) {
+    //https://api.datamuse.com/words?ml=flower&qe=sp&md=p&max=3
+    return `https://api.datamuse.com/words?sp=flower&qe=sp&md=dpfr&max=1`
+  }
+}

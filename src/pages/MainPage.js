@@ -4,6 +4,9 @@ import Knob from "../components/Knob";
 import { useState } from "react";
 import wordData from "../appData/words.json";
 
+
+
+
 function BandPage() {
   const [knobValues, setKnobValues] = useState({
     conjunction: 0.5,
@@ -14,6 +17,7 @@ function BandPage() {
   });
   const [words, setWords] = useState(wordData);
   // console.log(words)
+ 
 
   return (
     <div className="App">

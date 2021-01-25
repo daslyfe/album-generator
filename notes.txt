@@ -6,6 +6,13 @@ no more than two modifiers next to eachother, of differnt types. no modifiers at
 -prepositions and conjunctions should never be next to eachother
 -no two modifiers should ever be next to the same kind of modifier
 -actually two modifiers should never be next to eachotther or at the end 
+No two conjunctions next to each other
+No conjunctions after prepositions
+No two prepositions next to each other
+No determiner before preposition
+No two determiners next to each other
+Question mark if phrase ends in preposition
+Don’t end in a conjunction or a determiner
 datamuse query example: https://api.datamuse.com/words?sp=flower&qe=sp&md=dpfr&max=1
 
 *random button, knob, and synonym/soundslike/etc toggle next to each word that lets user scroll through them
